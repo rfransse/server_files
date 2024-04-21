@@ -1,0 +1,29 @@
+DROP TABLE itemmall_old;
+DROP INDEX itemmall_pi_index;
+ALTER TABLE itemmall RENAME TO itemmall_old;
+
+CREATE TABLE itemmall (
+item_id integer NOT NULL,
+item_group integer NOT NULL,
+item_index integer NOT NULL,
+item_num integer NOT NULL,
+money_unit integer NOT NULL,
+point integer NOT NULL,
+special_price integer NOT NULL,
+sell integer NOT NULL,
+item_color integer NOT NULL,
+sell_date integer NOT NULL,
+not_sell_date integer NOT NULL,
+num_limit integer NOT NULL, 
+recognized_percentage double precision NOT NULL, 
+fortune_bag text DEFAULT ''::text,
+level_limit integer NOT NULL,
+note text DEFAULT ''::text
+);
+
+CREATE UNIQUE INDEX itemmall_pi_index ON itemmall USING btree (item_group, item_index, money_unit);
+REVOKE ALL ON TABLE itemmall FROM PUBLIC;
+REVOKE ALL ON TABLE itemmall FROM postgres;
+GRANT ALL ON TABLE itemmall TO postgres;
+GRANT ALL ON TABLE itemmall TO spiritking;
+
